@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Andre Goderich 郭育賢 National Tsinghua University yuhsien77@gmail.com">
+  <title>用 Pandoc 撰寫學術文章</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="reveal.js/css/reveal.css">
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    background-color: #2a211c;
+    color: #bdae9d;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #bdae9d;  padding-left: 4px; }
+div.sourceCode
+  { color: #bdae9d; background-color: #2a211c; }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ffff00; } /* Alert */
+code span.an { color: #0066ff; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { } /* Attribute */
+code span.bn { color: #44aa43; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #43a8ed; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #049b0a; } /* Char */
+code span.cn { } /* Constant */
+code span.co { color: #0066ff; font-weight: bold; font-style: italic; } /* Comment */
+code span.do { color: #0066ff; font-style: italic; } /* Documentation */
+code span.dt { text-decoration: underline; } /* DataType */
+code span.dv { color: #44aa43; } /* DecVal */
+code span.er { color: #ffff00; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #44aa43; } /* Float */
+code span.fu { color: #ff9358; font-weight: bold; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #0066ff; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #43a8ed; font-weight: bold; } /* Keyword */
+code span.op { } /* Operator */
+code span.pp { font-weight: bold; } /* Preprocessor */
+code span.sc { color: #049b0a; } /* SpecialChar */
+code span.ss { color: #049b0a; } /* SpecialString */
+code span.st { color: #049b0a; } /* String */
+code span.va { } /* Variable */
+code span.vs { color: #049b0a; } /* VerbatimString */
+code span.wa { color: #ffff00; font-weight: bold; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="reveal.js/css/theme/black.css" id="theme">
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? 'reveal.js/css/print/pdf.css' : 'reveal.js/css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+  <!--[if lt IE 9]>
+  <script src="reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide">
+  <h1 class="title">用 Pandoc<br>撰寫學術文章</h1>
+  <p class="subtitle">COSCUP-2019, Taipei, 17-18 Aug 2019</p>
+  <p class="author">Andre Goderich 郭育賢<br>National Tsinghua University<br>yuhsien77@gmail.com</p>
+</section>
+
+<section><section id="簡介" class="title-slide slide level1"><h1>簡介</h1></section><section id="大綱" class="slide level2">
+<h2>大綱</h2>
+<ul>
+<li class="fragment">學術論文撰寫工具</li>
+<li class="fragment">Pandoc
+<ul>
+<li class="fragment">Pandoc 使用方式</li>
+<li class="fragment">Pandoc 與語言學</li>
+<li class="fragment">Pandoc 的工具</li>
+</ul></li>
+<li class="fragment">Pandoc 的優缺點</li>
+</ul>
+</section><section id="關於我" class="slide level2">
+<h2>關於我</h2>
+<ul>
+<li class="fragment">清大語言所博士候選人</li>
+<li class="fragment">用 Linux 已有十幾年</li>
+<li class="fragment">學過 Python 和 Haskell</li>
+</ul>
+</section></section>
+<section><section id="學術論文撰寫工具" class="title-slide slide level1"><h1>學術論文撰寫工具</h1></section><section id="文書處理器-vs-latex" class="slide level2">
+<h2>文書處理器 vs LaTeX</h2>
+<table>
+<thead>
+<tr class="header">
+<th>文書處理器</th>
+<th>LaTeX</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>較好上手</td>
+<td>較難上手</td>
+</tr>
+<tr class="even">
+<td>排版容易跑掉</td>
+<td>為排版而生</td>
+</tr>
+<tr class="odd">
+<td>適合較短篇的文件<br>（幾頁）</td>
+<td>適合較長篇的文章<br>（十幾頁UP）</td>
+</tr>
+<tr class="even">
+<td>邊寫邊排版</td>
+<td>撰寫與排版分工</td>
+</tr>
+</tbody>
+</table>
+</section><section id="語言學文章的需求" class="slide level2">
+<h2>語言學文章的需求</h2>
+<ul>
+<li class="fragment">嵌入參考文獻</li>
+<li class="fragment">Syntax trees / Optimality Theory tableaux</li>
+<li class="fragment">Interlinear glossing</li>
+<li class="fragment">Cross-referencing</li>
+<li class="fragment">Unicode （中文、國際音標）</li>
+</ul>
+</section><section id="科學家為何要用自由軟體" class="slide level2">
+<h2>科學家為何要用自由軟體？</h2>
+<ul>
+<li class="fragment">資料以開放的格式儲存
+<ul>
+<li class="fragment">易匯出、分享</li>
+</ul></li>
+<li class="fragment">價錢</li>
+<li class="fragment">個人化</li>
+</ul>
+</section><section id="文科-只有肥宅才會用latex吧" class="slide level2">
+<h2>文科：<br>只有肥宅才會用LaTeX吧！</h2>
+<ul>
+<li class="fragment">以 Markdown 代 Latex！</li>
+</ul>
+</section><section id="什麼是-markdown" class="slide level2">
+<h2>什麼是 Markdown？</h2>
+<ul>
+<li class="fragment">Markdown 不是程式， <br>是文字格式化的方式</li>
+<li class="fragment">需要編譯</li>
+<li class="fragment">原始檔可以直接看</li>
+</ul>
+</section><section id="markdown-語法" class="slide level2">
+<h2>Markdown 語法</h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+<pre><code>*italic*
+
+**bold**
+
+| foo | bar  |
+|-----|------|
+| baz | quux |</code></pre>
+</div><div class="column" style="width:40%;">
+<p><em>italic</em></p>
+<p><strong>bold</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>foo</th>
+<th>bar</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>baz</td>
+<td>quux</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section><section id="markdown-不只一種" class="slide level2">
+<h2>Markdown 不只一種！</h2>
+<ul>
+<li class="fragment">Pandoc Markdown</li>
+<li class="fragment">Commonmark</li>
+<li class="fragment">Github-flavoured Markdown</li>
+</ul>
+</section></section>
+<section><section id="pandoc" class="title-slide slide level1"><h1>Pandoc</h1></section><section id="什麼是-pandoc" class="slide level2">
+<h2>什麼是 Pandoc？</h2>
+<ul>
+<li class="fragment">格式轉換神器</li>
+<li class="fragment">柏克萊大學教授 John MacFarlane 所創</li>
+<li class="fragment">支援 LaTeX 與 Markdown</li>
+<li class="fragment">可輸出 PDF、docx、HTML 等等</li>
+<li class="fragment">這份簡報：Markdown 轉 reveal.js</li>
+</ul>
+</section><section id="pandoc-markdown-的特色" class="slide level2">
+<h2>Pandoc Markdown 的特色</h2>
+<ul>
+<li class="fragment">YAML metadata blocks</li>
+<li class="fragment">參考文獻：透過Bib(La)TeX</li>
+<li class="fragment">Cross-referencing</li>
+<li class="fragment">Inline LaTeX: 需要時，可用LaTeX的力量</li>
+</ul>
+</section><section id="yaml-metadata-block" class="slide level2">
+<h2>YAML metadata block</h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb2-1" title="1"><span class="ot">---</span></a>
+<a class="sourceLine" id="cb2-2" title="2"><span class="fu">title:</span><span class="at">  </span><span class="st">&#39;This is the title: it contains a colon&#39;</span></a>
+<a class="sourceLine" id="cb2-3" title="3"><span class="fu">author:</span></a>
+<a class="sourceLine" id="cb2-4" title="4"><span class="kw">-</span> Author One</a>
+<a class="sourceLine" id="cb2-5" title="5"><span class="kw">-</span> Author Two</a>
+<a class="sourceLine" id="cb2-6" title="6"><span class="fu">keywords:</span><span class="at"> </span><span class="kw">[</span>nothing<span class="kw">,</span> nothingness<span class="kw">]</span></a>
+<a class="sourceLine" id="cb2-7" title="7"><span class="fu">abstract:</span> <span class="st">|</span></a>
+<a class="sourceLine" id="cb2-8" title="8">  This is the abstract.</a>
+<a class="sourceLine" id="cb2-9" title="9"></a>
+<a class="sourceLine" id="cb2-10" title="10">  It consists of two paragraphs.</a>
+<a class="sourceLine" id="cb2-11" title="11"><span class="co">...</span></a></code></pre></div>
+</section><section id="bibliography-with-pandoc" class="slide level2">
+<h2>Bibliography with Pandoc</h2>
+<p>(需要用 <code>pandoc-citeproc</code> 過濾器）</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>bibliography.bib</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><a class="sourceLine" id="cb3-1" title="1"><span class="va">@book</span>{<span class="ot">prince2004</span>,</a>
+<a class="sourceLine" id="cb3-2" title="2">  <span class="dt">address</span> = { Malden, MA },</a>
+<a class="sourceLine" id="cb3-3" title="3">  <span class="dt">author</span> = { Prince, Alan and Smolensky, Paul },</a>
+<a class="sourceLine" id="cb3-4" title="4">  <span class="dt">isbn</span> = { 978-1-4051-1932-0 978-1-4051-1933-7 },</a>
+<a class="sourceLine" id="cb3-5" title="5">  <span class="dt">publisher</span> = { Blackwell Pub },</a>
+<a class="sourceLine" id="cb3-6" title="6">  <span class="dt">title</span> = { Optimality Theory: Constraint Interaction in Generative Grammar },</a>
+<a class="sourceLine" id="cb3-7" title="7">  <span class="dt">year</span> = { 2004 },</a>
+<a class="sourceLine" id="cb3-8" title="8">}</a></code></pre></div>
+</div><div class="column" style="width:50%;">
+<p>article.md</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb4-1" title="1"><span class="ot">---</span></a>
+<a class="sourceLine" id="cb4-2" title="2"><span class="fu">bibliography:</span><span class="at"> bibliography.bib</span></a>
+<a class="sourceLine" id="cb4-3" title="3"><span class="co">...</span></a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode markdown"><code class="sourceCode markdown"><a class="sourceLine" id="cb5-1" title="1">Constraints choose an optimal</a>
+<a class="sourceLine" id="cb5-2" title="2">candidate [@prince2004].</a></code></pre></div>
+</div>
+</div>
+</section><section id="cross-referencing" class="slide level2">
+<h2>Cross-referencing</h2>
+<p>(需要用 <code>pandoc-crossref</code> 過濾器）</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="sourceCode" id="cb6"><pre class="sourceCode markdown"><code class="sourceCode markdown"><a class="sourceLine" id="cb6-1" title="1">: Example table {#tbl:foo}</a>
+<a class="sourceLine" id="cb6-2" title="2"></a>
+<a class="sourceLine" id="cb6-3" title="3">| foo | bar  |</a>
+<a class="sourceLine" id="cb6-4" title="4">|-----|------|</a>
+<a class="sourceLine" id="cb6-5" title="5">| baz | quux |</a>
+<a class="sourceLine" id="cb6-6" title="6"></a>
+<a class="sourceLine" id="cb6-7" title="7">As seen in @tbl:foo, ...</a></code></pre></div>
+</div><div class="column" style="width:50%;">
+<p><img data-src="crossref.png" /></p>
+</div>
+</div>
+</section></section>
+<section><section id="inline-latex-for-linguists" class="title-slide slide level1"><h1>Inline LaTeX for linguists</h1></section><section id="syntax-trees" class="slide level2">
+<h2>Syntax trees</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<div class="sourceCode" id="cb7"><pre class="sourceCode latex"><code class="sourceCode latex"><a class="sourceLine" id="cb7-1" title="1">header-includes: |</a>
+<a class="sourceLine" id="cb7-2" title="2">  <span class="bu">\usepackage</span>{<span class="ex">qtree</span>}</a>
+<a class="sourceLine" id="cb7-3" title="3"></a>
+<a class="sourceLine" id="cb7-4" title="4"><span class="fu">\Tree</span> [.S [.NP LaTeX ]</a>
+<a class="sourceLine" id="cb7-5" title="5">      [.VP [.V is ] [.NP fun ] ] ]</a></code></pre></div>
+</div><div class="column" style="width:40%;">
+<p><img data-src="qtree.png" /></p>
+</div>
+</div>
+</section><section id="glossing" class="slide level2">
+<h2>Glossing</h2>
+<div class="sourceCode" id="cb8"><pre class="sourceCode latex"><code class="sourceCode latex"><a class="sourceLine" id="cb8-1" title="1">header-includes: |</a>
+<a class="sourceLine" id="cb8-2" title="2">  <span class="bu">\usepackage</span>{<span class="ex">gb4e</span>}</a>
+<a class="sourceLine" id="cb8-3" title="3"></a>
+<a class="sourceLine" id="cb8-4" title="4"><span class="kw">\begin</span>{<span class="ex">exe</span>}</a>
+<a class="sourceLine" id="cb8-5" title="5"><span class="fu">\ex</span></a>
+<a class="sourceLine" id="cb8-6" title="6"><span class="fu">\gll</span> baru&#39; lah diri&#39; muih munuh ià<span class="fu">\\</span></a>
+<a class="sourceLine" id="cb8-7" title="7">     then EMPH 1PL.INCL N.allowed N.kill 3<span class="fu">\\</span></a>
+<a class="sourceLine" id="cb8-8" title="8"><span class="fu">\trans</span> `Now we are allowed to kill him.&#39;</a>
+<a class="sourceLine" id="cb8-9" title="9"><span class="kw">\end</span>{<span class="ex">exe</span>}</a></code></pre></div>
+<p><img data-src="gloss.png" /></p>
+</section></section>
+<section><section id="工具" class="title-slide slide level1"><h1>工具</h1></section><section id="工具一覽" class="slide level2">
+<h2>工具一覽</h2>
+<ul>
+<li class="fragment">文字編輯器</li>
+<li class="fragment">PDF 輸出：LaTeX + Pandoc</li>
+</ul>
+</section><section id="文字編輯器" class="slide level2">
+<h2>文字編輯器</h2>
+<ul>
+<li class="fragment">Emacs</li>
+<li class="fragment">Vim</li>
+<li class="fragment">Notepad++</li>
+<li class="fragment">Atom</li>
+<li class="fragment">VS Code</li>
+</ul>
+</section><section id="pandoc-1" class="slide level2">
+<h2>Pandoc</h2>
+<ul>
+<li class="fragment">命令列介面 (CLI)</li>
+<li class="fragment">可另外裝圖形介面</li>
+</ul>
+</section></section>
+<section><section id="總結" class="title-slide slide level1"><h1>總結</h1></section><section id="優缺點" class="slide level2">
+<h2>優缺點</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>優點：</p>
+<ul>
+<li class="fragment">自由軟體！</li>
+<li class="fragment">原始檔是純文字</li>
+<li class="fragment">適合用 Git
+<ul>
+<li class="fragment">版本控制</li>
+<li class="fragment">輕易合作</li>
+</ul></li>
+<li class="fragment">較少 bug</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<p>缺點：</p>
+<ul>
+<li class="fragment">需要花時間學習</li>
+<li class="fragment">偶爾需用到 LaTeX</li>
+<li class="fragment">命令列介面</li>
+</ul>
+</div>
+</div>
+</section><section id="如何開始用-pandoc" class="slide level2">
+<h2>如何開始用 Pandoc?</h2>
+<p>前往 https://pandoc.org/getting-started.html</p>
+<p>閱讀說明書 https://pandoc.org/MANUAL.html</p>
+</section></section>
+<section id="謝謝" class="title-slide slide level1"><h1>謝謝！</h1></section>
+    </div>
+  </div>
+
+  <script src="reveal.js/lib/js/head.min.js"></script>
+  <script src="reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Display a presentation progress bar
+        progress: false,
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+        // Push each slide change to the browser history
+        history: true,
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true },
+          { src: 'reveal.js/plugin/notes/notes.js', async: true }
+        ]
+      });
+    </script>
+    </body>
+</html>
