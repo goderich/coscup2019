@@ -2,15 +2,9 @@
 title: 用 Pandoc<br>撰寫學術文章
 subtitle: COSCUP-2019, Taipei, 17-18 Aug 2019
 author:
-- Andre Goderich 郭育賢<br>National Tsinghua University<br>yuhsien77@gmail.com
+- Andre Goderich 郭育賢<br>National Tsinghua University<br>yuhsien77@gmail.com<br><b style="color:orangered">goderich.github.io/coscup2019</b>
 progress: "false"
-# controls: "false"
-slideNumber: \'c/t\'
 navigationMode: \'linear\'
-# minScale: 0.3
-# maxScale: 1.5
-# width: 1080
-# height: 800
 ---
 
 # 簡介
